@@ -27,5 +27,7 @@
 
 
 - **Jade McClain - Programmer**
+  - Created the sequential method of building a heap to the MaxHeap Class & Interface
+  - Added on to the HeapDriver class to print the results of the sequential method to a file
 
 
