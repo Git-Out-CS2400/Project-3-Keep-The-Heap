@@ -13,6 +13,11 @@ public interface MaxHeapInterface<T extends Comparable<? super T>>
 	 * @return an item at the index
 	 */
 	public T getItem(int index);
+    /**
+     * Builds a heap using the sequential method
+     * @param entries
+     */
+    public void sequentialBuild(T[]entries);
 	/**
 	 * Builds a heap using the optimal method
 	 * @param entries
@@ -25,7 +30,8 @@ public interface MaxHeapInterface<T extends Comparable<? super T>>
 	public int getSwaps();
    /** Adds a new entry to this heap.
        @param newEntry  An object to be added. */
-   public void add(T newEntry);
+
+   public int add(T newEntry);
 
    /** Removes and returns the largest item in this heap.
        @return  Either the largest object in the heap or,
