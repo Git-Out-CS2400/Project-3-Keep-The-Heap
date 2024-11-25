@@ -26,14 +26,41 @@ public class MaxHeapDriver {
 		//Turn the arrayList into an array 
 		Integer[] heapArray = numbers.toArray(new Integer[numbers.size()]); 
 		
+		
+		MaxHeap<Integer> sequentialHeap = new MaxHeap<>();
+		sequentialHeap.sequentialBuild(heapArray);
+
 		//Create a new MaxHeapObject and pass the heapArray as an argument to build using the optimal method
 		MaxHeap<Integer> optimalHeap = new MaxHeap<>();
 		optimalHeap.optimalBuild(heapArray);
-		
-		//Print the first 10 items of the newly created heap via the optimal method
+
+
+
 		FileWriter fw = new FileWriter("outputfile.txt");
 		PrintWriter outfile = new PrintWriter(fw);
-		outfile.println("Here's the first 10 items of the heap (made by the optimal method): ");
+		outfile.println("=====================================================================");
+		outfile.println("Here's the first 10 items of the heap (made by the sequential method): ");
+		for (int i = 1; i <= 10; i++) {
+            outfile.print(sequentialHeap.getItem(i) + " ");
+		}
+		//Print the number of swaps
+		outfile.println("\nHere's the number of swaps with the sequential method: " + sequentialHeap.getSwaps());
+		//call removeMax 10 times
+		for (int i= 1; i<=10;i++) {
+			sequentialHeap.removeMax();
+		}
+		//Print the new heap's first 10 items after the removals
+		outfile.println("Here's the first 10 items of the heap after 10 removals: ");
+		for (int i = 1; i <= 10; i++) {
+            outfile.print(sequentialHeap.getItem(i) + " ");
+		}
+		//Print number of swaps
+		outfile.println("\nHere's the number of swaps after the removals: " + sequentialHeap.getSwaps());
+
+
+		
+		
+		outfile.println("\n\nHere's the first 10 items of the heap (made by the optimal method): ");
 		for (int i = 1; i <= 10; i++) {
             outfile.print(optimalHeap.getItem(i) + " ");
 		}
@@ -50,6 +77,7 @@ public class MaxHeapDriver {
 		}
 		//Print number of swaps
 		outfile.println("\nHere's the number of swaps after the removals: " + optimalHeap.getSwaps());
+		outfile.println("=====================================================================");
 		inputfile.close(); //close the scanner
 		outfile.close();  //close the file
 	}
