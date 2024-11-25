@@ -33,8 +33,9 @@ public class MaxHeapDriver {
 		//Create a new MaxHeapObject and pass the heapArray as an argument to build using the optimal method
 		MaxHeap<Integer> optimalHeap = new MaxHeap<>();
 		optimalHeap.optimalBuild(heapArray);
-
-
+		
+		System.out.println("Done!");
+		System.out.println("Both the sequential and optimal method's output will be in outputfile.txt.");
 
 		FileWriter fw = new FileWriter("outputfile.txt");
 		PrintWriter outfile = new PrintWriter(fw);

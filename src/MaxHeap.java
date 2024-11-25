@@ -59,7 +59,6 @@ public final class MaxHeap<T extends Comparable<? super T>>
 	    	ensureCapacity();
 	        heap[index + 1] = entries[index]; // Fill the heap starting from index 1
 	    }
-	    debug();
 	    // Start heapifying from the last non-leaf node
 	    for (int rootIndex = lastIndex / 2; rootIndex > 0; rootIndex--) {
 	        reheap(rootIndex); // Reheapify the tree
@@ -188,9 +187,5 @@ public final class MaxHeap<T extends Comparable<? super T>>
            heap = Arrays.copyOf(heap, newCapacity);
        }
    }
-   private void debug() {
-	   System.out.println("Heap array size: " + heap.length);
-	   System.out.println("Last index: " + lastIndex);
 
-   }
 } // end MaxHeap
