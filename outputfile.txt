@@ -1,0 +1,6 @@
+Here's the first 10 items of the heap (made by the optimal method): 
+100 95 99 79 94 98 63 71 78 87 
+Here's the number of swaps with the optimal method: 96
+Here's the first 10 items of the heap after 10 removals: 
+90 89 63 79 88 55 62 71 78 87 
+Here's the number of swaps after the removals: 151
