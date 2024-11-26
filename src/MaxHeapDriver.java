@@ -66,6 +66,9 @@ public class MaxHeapDriver {
             outfile.println("Number of swaps in the heap creation: " + optimalHeap.getSwaps());
             performRemovals(optimalHeap, 10);
             writeHeapResults(outfile, "Heap after 10 removals", optimalHeap);
+            
+            outfile.println();
+            outfile.println("Github link: https://github.com/Git-Out-CS2400/Project-3.git");
 
             outfile.println("=====================================================================");
         }
