@@ -14,7 +14,7 @@
   - GitHub: [rusteeez](https://github.com/rusteeez)
 
 ### Project Repository
-[GitHub Repository Link](<[https://github.com/Git-Out-CS2400/Project-2](https://github.com/Git-Out-CS2400/Project-3)>)
+[GitHub Repository Link](<[[https://github.com/Git-Out-CS2400/Project-2](https://github.com/Git-Out-CS2400/Project-3)](https://github.com/Git-Out-CS2400/Project-3-Keep-The-Heap.git)>)
 
 ### Roles and Contributions
 
