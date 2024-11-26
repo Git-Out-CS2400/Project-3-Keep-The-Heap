@@ -24,6 +24,8 @@
   - Worked on the HeapDriver class to print the results of the optimal method to a file
 
 - **Aaron Aramburo - Programmer**
+  - Cleaned up HeapDriver class by adding unique methods to write results, perform removals, and handle formating of output
+  - Generated Javadoc folder
 
 
 - **Jade McClain - Programmer**
