@@ -1,86 +1,99 @@
 import java.io.*;
-import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class MaxHeapDriver {
 
-	public static void main(String[] args) throws IOException {
-		String filename;
-		Scanner scan = new Scanner(System.in); //scanner input
-		System.out.println("Enter the filename:"); 
-		filename=scan.next(); //get the filename
-		ArrayList<Integer> numbers = new ArrayList<>(); //Create an arrayList that will hold the numbers from the file
-		
-		//File object to read the file
-		File file = new File(filename);
-		
-		//Scanner to read file contents
-		Scanner inputfile=new Scanner(file);
-		//Read contents from the file
-		while(inputfile.hasNext()) {
-			String num = inputfile.nextLine().trim(); //use trim method to cut out empty space
-			if(!num.isEmpty())
-				numbers.add(Integer.parseInt(num)); //convert to integer and add to the arrayList
-		}
-		
-		//Turn the arrayList into an array 
-		Integer[] heapArray = numbers.toArray(new Integer[numbers.size()]); 
-		
-		
-		MaxHeap<Integer> sequentialHeap = new MaxHeap<>();
-		sequentialHeap.sequentialBuild(heapArray);
+    public static void main(String[] args) throws IOException {
+        // Get the filename from the user
+        String filename = getFilenameFromUser();
 
-		//Create a new MaxHeapObject and pass the heapArray as an argument to build using the optimal method
-		MaxHeap<Integer> optimalHeap = new MaxHeap<>();
-		optimalHeap.optimalBuild(heapArray);
-		
-		System.out.println("Done!");
-		System.out.println("Both the sequential and optimal method's output will be in outputfile.txt.");
+        // Read numbers from the file
+        Integer[] heapArray = readNumbersFromFile(filename);
 
-		FileWriter fw = new FileWriter("outputfile.txt");
-		PrintWriter outfile = new PrintWriter(fw);
-		outfile.println("=====================================================================");
-		outfile.println("Here's the first 10 items of the heap (made by the sequential method): ");
-		for (int i = 1; i <= 10; i++) {
-            outfile.print(sequentialHeap.getItem(i) + " ");
-		}
-		//Print the number of swaps
-		outfile.println("\nHere's the number of swaps with the sequential method: " + sequentialHeap.getSwaps());
-		//call removeMax 10 times
-		for (int i= 1; i<=10;i++) {
-			sequentialHeap.removeMax();
-		}
-		//Print the new heap's first 10 items after the removals
-		outfile.println("Here's the first 10 items of the heap after 10 removals: ");
-		for (int i = 1; i <= 10; i++) {
-            outfile.print(sequentialHeap.getItem(i) + " ");
-		}
-		//Print number of swaps
-		outfile.println("\nHere's the number of swaps after the removals: " + sequentialHeap.getSwaps());
+        // Build heaps using sequential and optimal methods
+        MaxHeap<Integer> sequentialHeap = new MaxHeap<>();
+        sequentialHeap.sequentialBuild(heapArray);
 
+        MaxHeap<Integer> optimalHeap = new MaxHeap<>();
+        optimalHeap.optimalBuild(heapArray);
 
-		
-		
-		outfile.println("\n\nHere's the first 10 items of the heap (made by the optimal method): ");
-		for (int i = 1; i <= 10; i++) {
-            outfile.print(optimalHeap.getItem(i) + " ");
-		}
-		//Print the number of swaps
-		outfile.println("\nHere's the number of swaps with the optimal method: " + optimalHeap.getSwaps());
-		//call removeMax 10 times
-		for (int i= 1; i<=10;i++) {
-			optimalHeap.removeMax();
-		}
-		//Print the new heap's first 10 items after the removals
-		outfile.println("Here's the first 10 items of the heap after 10 removals: ");
-		for (int i = 1; i <= 10; i++) {
-            outfile.print(optimalHeap.getItem(i) + " ");
-		}
-		//Print number of swaps
-		outfile.println("\nHere's the number of swaps after the removals: " + optimalHeap.getSwaps());
-		outfile.println("=====================================================================");
-		inputfile.close(); //close the scanner
-		outfile.close();  //close the file
-	}
+        System.out.println("Done! Both the sequential and optimal method's output will be in outputfile.txt.");
 
+        // Write the results to the output file
+        writeResultsToFile(sequentialHeap, optimalHeap);
+    }
+
+    // Get the filename from the user
+    private static String getFilenameFromUser() {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Enter the filename:");
+        String filename = scan.next();
+        scan.close();
+        return filename;
+    }
+
+    // Read numbers from file and return them as an array
+    private static Integer[] readNumbersFromFile(String filename) throws IOException {
+        ArrayList<Integer> numbers = new ArrayList<>();
+        File file = new File(filename);
+        Scanner inputFile = new Scanner(file);
+
+        while (inputFile.hasNext()) {
+            String num = inputFile.nextLine().trim();
+            if (!num.isEmpty()) {
+                numbers.add(Integer.parseInt(num));
+            }
+        }
+        inputFile.close();
+        return numbers.toArray(new Integer[0]);
+    }
+
+    // Write the heap results to the output file
+    private static void writeResultsToFile(MaxHeap<Integer> sequentialHeap, MaxHeap<Integer> optimalHeap) throws IOException {
+        try (PrintWriter outfile = new PrintWriter(new FileWriter("outputfile.txt"))) {
+            outfile.println("=====================================================================");
+
+            // Sequential method
+            writeHeapResults(outfile, "Heap built using sequential insertions", sequentialHeap);
+            outfile.println("Number of swaps in the heap creation: " + sequentialHeap.getSwaps());
+            performRemovals(sequentialHeap, 10);
+            writeHeapResults(outfile, "Heap after 10 removals", sequentialHeap);
+
+            // Optimal method
+            outfile.println();
+            writeHeapResults(outfile, "Heap built using optimal method", optimalHeap);
+            outfile.println("Number of swaps in the heap creation: " + optimalHeap.getSwaps());
+            performRemovals(optimalHeap, 10);
+            writeHeapResults(outfile, "Heap after 10 removals", optimalHeap);
+
+            outfile.println("=====================================================================");
+        }
+    }
+
+    // Method to write results to output file
+    private static void writeHeapResults(PrintWriter outfile, String label, MaxHeap<Integer> heap) {
+        outfile.print(label + ": ");
+        outfile.println(formatHeap(heap, 10));
+    }
+
+    // Method to perform heap removals
+    private static void performRemovals(MaxHeap<Integer> heap, int count) {
+        for (int i = 0; i < count && !heap.isEmpty(); i++) {
+            heap.removeMax();
+        }
+    }
+
+    // Method to handle formatting of output
+    private static String formatHeap(MaxHeap<Integer> heap, int count) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 1; i <= count && i <= heap.getSize(); i++) {
+            sb.append(heap.getItem(i));
+            if (i < count && i < heap.getSize()) {
+                sb.append(",");
+            }
+        }
+        sb.append(",...");
+        return sb.toString();
+    }
 }
