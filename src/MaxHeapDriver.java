@@ -68,7 +68,7 @@ public class MaxHeapDriver {
             writeHeapResults(outfile, "Heap after 10 removals", optimalHeap);
             
             outfile.println();
-            outfile.println("Github link: https://github.com/Git-Out-CS2400/Project-3.git");
+            outfile.println("Github link: https://github.com/Git-Out-CS2400/Project-3-Keep-The-Heap.git");
 
             outfile.println("=====================================================================");
         }
